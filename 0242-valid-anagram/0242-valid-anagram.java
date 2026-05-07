@@ -3,16 +3,22 @@ class Solution {
         if(s.length()!=t.length()){
             return false;
         }
-        int n=s.length();
-        int[] cs=new int[26];
-        int[] ct=new int[26];
-        for(int i=0;i<n;i++){
-            cs[s.charAt(i)-97]++;
-            ct[t.charAt(i)-97]++;
+        Map<Character ,Integer> hm=new HashMap<>();
+        for(char c:s.toCharArray()){
+            if(hm.containsKey(c)){
+                hm.put(c,hm.get(c)+1);
+            }else{
+                hm.put(c,1);
+            }
         }
-        for(int i=0;i<26;i++){
-            if(cs[i]!=ct[i]){
+        for(char c:t.toCharArray()){
+            if(!hm.containsKey(c)){
                 return false;
+            }else{
+                if(hm.get(c)==0){
+                    return false;
+                }
+                hm.put(c,hm.get(c)-1);
             }
         }
         return true;
