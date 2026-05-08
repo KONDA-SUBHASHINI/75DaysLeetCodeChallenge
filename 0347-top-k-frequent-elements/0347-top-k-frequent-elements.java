@@ -1,15 +1,11 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        HashMap<Integer,Integer> hm= new HashMap<>();
+        Map<Integer,Integer> hm=new HashMap<>();
         for(int i:nums){
-            if(hm.containsKey(i)){
-                hm.put(i,hm.get(i)+1);
-            }else{
-                hm.put(i,1);
-            }
+            hm.put(i,hm.getOrDefault(i,0)+1);
         }
-        List<Integer> l=new ArrayList<>(hm.keySet());
-        l.sort((a,b)-> hm.get(b)-hm.get(a));
+        List<Integer> l=new  ArrayList<>(hm.keySet());
+        Collections.sort(l,(a,b)->hm.get(b)-hm.get(a));
         int[] res=new int[k];
         for(int i=0;i<k;i++){
             res[i]=l.get(i);
