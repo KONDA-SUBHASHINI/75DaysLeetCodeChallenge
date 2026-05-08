@@ -4,11 +4,13 @@ class Solution {
         for(int i:nums){
             hm.put(i,hm.getOrDefault(i,0)+1);
         }
-        List<Integer> l=new  ArrayList<>(hm.keySet());
-        Collections.sort(l,(a,b)->hm.get(b)-hm.get(a));
+        PriorityQueue<Integer> pq=new PriorityQueue((a,b)->hm.get(b)-hm.get(a));
+        for(int n:hm.keySet()){
+            pq.offer(n);
+        }
         int[] res=new int[k];
         for(int i=0;i<k;i++){
-            res[i]=l.get(i);
+            res[i]=pq.poll();
         }
         return res;
     }
